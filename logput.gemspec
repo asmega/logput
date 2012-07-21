@@ -2,7 +2,7 @@
 require File.expand_path('../lib/logput/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["asmega"]
+  gem.authors       = ["Philip Lee"]
   gem.email         = ["asmega@ph-lee.com"]
   gem.description   = 'Rack middleware to output rails logs to a webpage'
   gem.summary       = 'Rack middleware to output rails logs to a webpage'
