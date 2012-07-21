@@ -35,8 +35,8 @@ describe Logput::Middleware do
         class Rails; end
       end
 
-      it 'returns ./logs/development.log' do
-        subject.instance_variable_get(:@path_to_log_file).should == './logs/development.log'
+      it 'returns ./log/development.log' do
+        subject.instance_variable_get(:@path_to_log_file).should == './log/development.log'
       end
     end
   end

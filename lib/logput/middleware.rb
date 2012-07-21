@@ -23,7 +23,7 @@ module Logput
 
     def default_path_to_log_file
       if defined? Rails
-        './logs/development.log'
+        './log/development.log'
       else
         raise Exception, 'Must specify path to log file'
       end
