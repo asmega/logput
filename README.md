@@ -35,6 +35,8 @@ Example.
 
     config.middleware.use(Logput::Middleware, :lines_to_read => 300, :path_to_log_file => './log/delayed_job')
 
+Start you rails server as normal in the set environemnt. Navigate to /logput e.g. [http://localhost:3000/logput](http://localhost:3000/logput)
+
 ## Contributing
 
 1. Fork it
