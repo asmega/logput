@@ -59,6 +59,7 @@ describe Logput::Middleware do
     end
 
     context 'when there is log file' do
+      subject{ described_class.new(app, :path_to_log_file => './spec/support/test.log', :lines_to_read => 5) }
       let(:server){ Rack::MockRequest.new(subject) }
 
       it 'responds with 200' do
