@@ -11,9 +11,9 @@ module Logput
         if File.exists? @path_to_log_file
           out = `tail -n #{@lines_to_read} #{@path_to_log_file}`
 
-          [200, {"Content-Type" => "text/html"}, out]
+          [200, {"Content-Type" => "text/html"}, ["<pre>", out, "</pre>"]]
         else
-          [404, {"Content-Type" => "text/html"}, "Log file not found."]
+          [404, {"Content-Type" => "text/html"}, ["Log file not found."]]
         end
       else
         @app.call(env)
