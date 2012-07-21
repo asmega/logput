@@ -22,7 +22,18 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Inside you rails app. Add the following line to config/development.rb and/or any other environment you wish to use this in.
+
+    config.middleware.use(Logput::Middleware)
+
+The following configuration options are available.
+
+* :path_to_log_file => '/path/to/custom/log'. Defaults to current environments log file if in rails.
+* :lines_to_read => 1000. Defaults to 500.
+
+Example.
+
+    config.middleware.use(Logput::Middleware, :lines_to_read => 300, :path_to_log_file => './log/delayed_job')
 
 ## Contributing
 
