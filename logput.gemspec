@@ -14,4 +14,8 @@ Gem::Specification.new do |gem|
   gem.name          = "logput"
   gem.require_paths = ["lib"]
   gem.version       = Logput::VERSION
+
+  gem.add_dependency 'rack'
+  gem.add_development_dependency 'rspec'
+  gem.add_development_dependency 'rake'
 end

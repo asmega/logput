@@ -1,5 +1,6 @@
 require "logput/version"
+require 'rack'
 
 module Logput
-  # Your code goes here...
+  autoload :Middleware, 'logput/middleware'
 end
