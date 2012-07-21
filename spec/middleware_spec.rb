@@ -26,7 +26,7 @@ describe Logput::Middleware do
 
     context 'when rails is not defined' do
       it 'raises an error' do
-        expect{ subject }.to raise_exception
+        expect{ server.get('/logput') }.to raise_exception
       end
     end
 
@@ -35,30 +35,25 @@ describe Logput::Middleware do
         class Rails; end
       end
 
-      it 'returns ./log/development.log' do
-        subject.instance_variable_get(:@path_to_log_file).should == './log/development.log'
-      end
+      it 'returns ./log/development.log'
     end
   end
 
   describe '/logput' do
-    before :each do
-      @response = server.get('/logput')
-    end
-
     context 'when there is no log file' do
-      let(:server){ Rack::MockRequest.new(described_class.new(app)) }
+      subject{ described_class.new(app, :path_to_log_file => './file_does_not_exist') }
+      let(:server){ Rack::MockRequest.new(subject) }
 
-      it 'returns a 404' do
-        @response.status.should == 404
-      end
-
-      it 'tells the user no log file can be found' do
-        @response.body.should include('not found')
+      it 'raises an exception' do
+        expect{ server.get('/logput')}.to raise_exception
       end
     end
 
     context 'when there is log file' do
+      before :each do
+        @response = server.get('/logput')
+      end
+
       subject{ described_class.new(app, :path_to_log_file => './spec/support/test.log', :lines_to_read => 5) }
       let(:server){ Rack::MockRequest.new(subject) }
 
