@@ -4,9 +4,9 @@ require File.expand_path('../lib/logput/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["asmega"]
   gem.email         = ["asmega@ph-lee.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.description   = 'Rack middleware to output rails logs to a webpage'
+  gem.summary       = 'Rack middleware to output rails logs to a webpage'
+  gem.homepage      = "https://github.com/asmega/logput"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
