@@ -1,6 +1,10 @@
 # Logput
 
-TODO: Write a gem description
+Rack middleware to sit in a rails app to put put the current environments log to a webpage. eg /logput
+
+To be used in test and development environments to see logs without needing direct access to the box.
+
+This NOT to be used in production like environments.
 
 ## Installation
 
