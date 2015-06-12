@@ -31,11 +31,49 @@ describe Logput::Middleware do
     end
 
     context 'when rails is defined' do
+      let(:logger) { double }
+      let(:logvar) { double }
+      let(:logdest) { double(:path => './spec/support/test.log') }
+
       before :each do
-        class Rails; end
+        class Rails
+          def self.version
+            @rails_version
+          end
+
+          def self.version=(v)
+            @rails_version = v
+          end
+        end
       end
 
-      it 'returns ./log/development.log'
+      context 'Rails 4' do
+        before :each do
+          Rails.version = '4.0.0'
+          allow(logger).to receive(:instance_variable_get).with(:@logdev).and_return(logvar)
+          allow(logvar).to receive(:instance_variable_get).with(:@dev).and_return(logdest)
+
+          @request = server.get('/logput', { 'action_dispatch.logger' => logger })
+        end
+
+        it 'accesses the correct log file' do
+          expect(@request.status).to eq(200)
+        end
+      end
+
+      context 'Rails 3' do
+        before :each do
+          Rails.version = '3.0.0'
+          allow(logger).to receive(:instance_variable_get).with(:@logger).and_return(logvar)
+          allow(logvar).to receive(:instance_variable_get).with(:@log_dest).and_return(logdest)
+
+          @request = server.get('/logput', { 'action_dispatch.logger' => logger })
+        end
+
+        it 'accesses the correct log file' do
+          expect(server.get('/logput').status).to eq(200)
+        end
+      end
     end
   end
 
