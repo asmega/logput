@@ -6,6 +6,8 @@ To be used in test and development environments to see logs without needing dire
 
 This NOT to be used in production like environments.
 
+Supports Rails 3.x.x and 4.x.x
+
 ## Installation
 
 Add this line to your application's Gemfile:

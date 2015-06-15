@@ -1,4 +1,6 @@
+# Logput
 module Logput
+  # Middleware
   class Middleware
     def initialize(app, options = {})
       @app = app
@@ -6,6 +8,7 @@ module Logput
       @lines_to_read = options[:lines_to_read] || 500
     end
 
+    # Call
     def call(env)
       @path_to_log_file ||= default_path_to_log_file(env)
 
@@ -22,11 +25,17 @@ module Logput
     private
 
     def default_path_to_log_file(env)
-      if defined? Rails
-        env['action_dispatch.logger'].instance_variable_get(:@logger).instance_variable_get(:@log_dest).path
+      raise Exception, 'Must specify path to log file' unless defined? Rails
+
+      if Rails.version >= "4.0.0"
+        logger(env).instance_variable_get(:@logdev).instance_variable_get(:@dev).path
       else
-        raise Exception, 'Must specify path to log file'
+        logger(env).instance_variable_get(:@logger).instance_variable_get(:@log_dest).path
       end
+    end
+
+    def logger(env)
+      env['action_dispatch.logger']
     end
   end
 end
