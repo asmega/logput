@@ -1,5 +1,7 @@
 # Logput
 
+[![Build Status](https://travis-ci.org/chrisbarber86/logput.svg?branch=add_travis)](https://travis-ci.org/chrisbarber86/logput)
+
 Rack middleware to sit in a rails app to put put the current environments log to a webpage. eg /logput
 
 To be used in test and development environments to see logs without needing direct access to the box.
