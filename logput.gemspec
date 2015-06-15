@@ -26,4 +26,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'flay'
   gem.add_development_dependency 'flog'
   gem.add_development_dependency 'yard'
+  gem.add_development_dependency 'rake'
 end
