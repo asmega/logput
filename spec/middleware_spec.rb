@@ -1,5 +1,8 @@
 require 'spec_helper'
 
+module ActiveSupport; class TaggedLogging; end; end
+class Logger; end
+
 describe Logput::Middleware do
   subject{ described_class.new(app, :path_to_log_file => './spec/support/test.log') }
 
@@ -31,47 +34,39 @@ describe Logput::Middleware do
     end
 
     context 'when rails is defined' do
-      let(:logger) { double }
+      let(:path) { './spec/support/test.log' }
       let(:logvar) { double }
-      let(:logdest) { double(:path => './spec/support/test.log') }
+      let(:logdev) { double(:filename => path) }
+      let(:log_dest) { double(:path => path) }
 
-      before :each do
-        class Rails
-          def self.version
-            @rails_version
-          end
+      before { class Rails; end }
 
-          def self.version=(v)
-            @rails_version = v
-          end
-        end
-      end
+      context 'TaggedLogging' do
+        let(:logger) { ::ActiveSupport::TaggedLogging.new }
 
-      context 'Rails 4' do
         before :each do
-          Rails.version = '4.0.0'
-          allow(logger).to receive(:instance_variable_get).with(:@logdev).and_return(logvar)
-          allow(logvar).to receive(:instance_variable_get).with(:@dev).and_return(logdest)
-
-          @request = server.get('/logput', { 'action_dispatch.logger' => logger })
-        end
-
-        it 'accesses the correct log file' do
-          expect(@request.status).to eq(200)
-        end
-      end
-
-      context 'Rails 3' do
-        before :each do
-          Rails.version = '3.0.0'
           allow(logger).to receive(:instance_variable_get).with(:@logger).and_return(logvar)
-          allow(logvar).to receive(:instance_variable_get).with(:@log_dest).and_return(logdest)
+          allow(logvar).to receive(:instance_variable_get).with(:@log_dest).and_return(log_dest)
 
           @request = server.get('/logput', { 'action_dispatch.logger' => logger })
         end
 
         it 'accesses the correct log file' do
           expect(server.get('/logput').status).to eq(200)
+        end
+      end
+
+      context 'Logger' do
+        let(:logger) { ::Logger.new }
+
+        before :each do
+          allow(logger).to receive(:instance_variable_get).with(:@logdev).and_return(logdev)
+
+          @request = server.get('/logput', { 'action_dispatch.logger' => logger })
+        end
+
+        it 'accesses the correct log file' do
+          expect(@request.status).to eq(200)
         end
       end
     end

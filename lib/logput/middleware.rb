@@ -25,17 +25,21 @@ module Logput
     private
 
     def default_path_to_log_file(env)
-      raise Exception, 'Must specify path to log file' unless defined? Rails
-
-      if Rails.version >= "4.0.0"
-        logger(env).instance_variable_get(:@logdev).instance_variable_get(:@dev).path
-      else
-        logger(env).instance_variable_get(:@logger).instance_variable_get(:@log_dest).path
-      end
+      raise Exception, 'Must specify path to Rails log file' unless defined? Rails
+      path(logger(env)) || raise(Exception, "#{logger(env).class} not supported.")
     end
 
     def logger(env)
       env['action_dispatch.logger']
+    end
+
+    def path(logger)
+      case logger
+        when ::ActiveSupport::TaggedLogging
+          logger.instance_variable_get(:@logger).instance_variable_get(:@log_dest).path
+        when ::Logger
+          logger.instance_variable_get(:@logdev).filename
+      end
     end
   end
 end
