@@ -2,6 +2,7 @@ require 'spec_helper'
 
 module ActiveSupport; class TaggedLogging; end; end
 class Logger; end
+class Rails; end
 
 describe Logput::Middleware do
   subject{ described_class.new(app, :path_to_log_file => './spec/support/test.log') }
@@ -38,8 +39,6 @@ describe Logput::Middleware do
       let(:logvar) { double }
       let(:logdev) { double(:filename => path) }
       let(:log_dest) { double(:path => path) }
-
-      before { class Rails; end }
 
       context 'TaggedLogging' do
         let(:logger) { ::ActiveSupport::TaggedLogging.new }
