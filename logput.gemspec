@@ -20,4 +20,11 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rspec'
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'pry'
+  gem.add_development_dependency 'fudge'
+  gem.add_development_dependency 'simplecov'
+  gem.add_development_dependency 'cane'
+  gem.add_development_dependency 'flay'
+  gem.add_development_dependency 'flog'
+  gem.add_development_dependency 'yard'
+  gem.add_development_dependency 'rake'
 end

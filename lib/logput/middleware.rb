@@ -1,4 +1,6 @@
+# Logput
 module Logput
+  # Middleware
   class Middleware
     def initialize(app, options = {})
       @app = app
@@ -6,6 +8,7 @@ module Logput
       @lines_to_read = options[:lines_to_read] || 500
     end
 
+    # Call
     def call(env)
       @path_to_log_file ||= default_path_to_log_file(env)
 
@@ -22,10 +25,20 @@ module Logput
     private
 
     def default_path_to_log_file(env)
-      if defined? Rails
-        env['action_dispatch.logger'].instance_variable_get(:@logger).instance_variable_get(:@log_dest).path
-      else
-        raise Exception, 'Must specify path to log file'
+      raise Exception, 'Must specify path to Rails log file' unless defined? Rails
+      path(logger(env)) || raise(Exception, "#{logger(env).class} not supported.")
+    end
+
+    def logger(env)
+      env['action_dispatch.logger']
+    end
+
+    def path(logger)
+      case logger
+        when ::ActiveSupport::TaggedLogging
+          logger.instance_variable_get(:@logger).instance_variable_get(:@log_dest).path
+        when ::Logger
+          logger.instance_variable_get(:@logdev).filename
       end
     end
   end

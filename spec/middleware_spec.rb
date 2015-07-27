@@ -1,5 +1,9 @@
 require 'spec_helper'
 
+module ActiveSupport; class TaggedLogging; end; end
+class Logger; end
+class Rails; end
+
 describe Logput::Middleware do
   subject{ described_class.new(app, :path_to_log_file => './spec/support/test.log') }
 
@@ -31,11 +35,39 @@ describe Logput::Middleware do
     end
 
     context 'when rails is defined' do
-      before :each do
-        class Rails; end
+      let(:path) { './spec/support/test.log' }
+      let(:logvar) { double }
+      let(:logdev) { double(:filename => path) }
+      let(:log_dest) { double(:path => path) }
+
+      context 'TaggedLogging' do
+        let(:logger) { ::ActiveSupport::TaggedLogging.new }
+
+        before :each do
+          allow(logger).to receive(:instance_variable_get).with(:@logger).and_return(logvar)
+          allow(logvar).to receive(:instance_variable_get).with(:@log_dest).and_return(log_dest)
+
+          @request = server.get('/logput', { 'action_dispatch.logger' => logger })
+        end
+
+        it 'accesses the correct log file' do
+          expect(server.get('/logput').status).to eq(200)
+        end
       end
 
-      it 'returns ./log/development.log'
+      context 'Logger' do
+        let(:logger) { ::Logger.new }
+
+        before :each do
+          allow(logger).to receive(:instance_variable_get).with(:@logdev).and_return(logdev)
+
+          @request = server.get('/logput', { 'action_dispatch.logger' => logger })
+        end
+
+        it 'accesses the correct log file' do
+          expect(@request.status).to eq(200)
+        end
+      end
     end
   end
 
