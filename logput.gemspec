@@ -7,6 +7,7 @@ Gem::Specification.new do |gem|
   gem.description   = 'Rack middleware to output rails logs to a webpage'
   gem.summary       = 'Rack middleware to output rails logs to a webpage'
   gem.homepage      = "https://github.com/asmega/logput"
+  gem.license       = 'MIT'
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
@@ -26,5 +27,4 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'flay'
   gem.add_development_dependency 'flog'
   gem.add_development_dependency 'yard'
-  gem.add_development_dependency 'rake'
 end
