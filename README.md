@@ -10,6 +10,11 @@ This NOT to be used in production like environments.
 
 Supports Rails 3.x.x and 4.x.x
 
+## Credits
+
+* Phil Lee ([@asmega](https://github.com/asmega)) [Author]
+* Chris Barber ([@chrisbarber86](https://github.com/chrisbarber86))
+
 ## Installation
 
 Add this line to your application's Gemfile:
