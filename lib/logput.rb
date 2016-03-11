@@ -4,4 +4,5 @@ require 'rack'
 # Logput
 module Logput
   autoload :Middleware, 'logput/middleware'
+  autoload :Adapters, 'logput/adapters'
 end

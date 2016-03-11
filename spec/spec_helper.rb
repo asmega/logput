@@ -22,3 +22,7 @@ RSpec.configure do |config|
 
   config.requires = ['logput']
 end
+
+module ActiveSupport; class TaggedLogging; end; end
+class Logger; end
+class Rails; end

@@ -15,7 +15,7 @@ task_group :duplication do
 end
 
 task_group :complexity do
-  task :flog, :exclude => '^\.\/spec\/', :max => 7.7, :average => 5.7, :methods => true
+  task :flog, :exclude => '^\.\/spec\/', :methods => true
 end
 
 build :default do
