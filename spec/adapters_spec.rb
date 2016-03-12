@@ -31,8 +31,10 @@ describe Logput::Adapters do
     end
 
     context 'when no adapter matches' do
-      it 'returns nil' do
-        expect(described_class.obtain(:foo)).to eq(nil)
+      it 'raises a logger not supported exception' do
+        expect {
+          described_class.obtain(:foo)
+        }.to raise_error
       end
     end
   end

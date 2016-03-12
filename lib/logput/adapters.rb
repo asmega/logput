@@ -8,12 +8,12 @@ module Logput
     end
 
     # Find a registered adapter
-    # @return [Adapter, nil] An instance of the adapter, or nil
+    # @return [Adapter] An instance of the adapter, or raise an exception
     def self.obtain(logger)
       registered_adapters.each do |_, adapter|
         return adapter.new(logger) if adapter.handles?(logger)
       end
-      return nil
+      raise "#{logger} is not supported."
     end
 
     require 'logput/adapters/base'

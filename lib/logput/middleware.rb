@@ -39,7 +39,7 @@ module Logput
 
     def default_path_to_log_file
       raise Exception, 'Must specify path to Rails log file' unless defined? Rails
-      path || raise(Exception, "#{logger.class} not supported.")
+      path
     end
 
     def logger
