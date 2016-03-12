@@ -6,7 +6,7 @@ Rack middleware to sit in a rails app to put put the current environments log to
 
 To be used in test and development environments to see logs without needing direct access to the box.
 
-This NOT to be used in production like environments.
+:warning: This is *NOT* to be used in production like environments.
 
 Supports Rails 3.x.x and 4.x.x
 
@@ -37,14 +37,14 @@ Inside you rails app. Add the following line to config/development.rb and/or any
 
 The following configuration options are available.
 
-* :path_to_log_file => '/path/to/custom/log'. Defaults to current environments log file if in rails.
-* :lines_to_read => 1000. Defaults to 500.
+* `:path_to_log_file => '/path/to/custom/log'`. Defaults to current environments log file if in rails.
+* `:lines_to_read => 1000`. Defaults to 500.
 
 Example.
 
     config.middleware.use(Logput::Middleware, :lines_to_read => 300, :path_to_log_file => './log/delayed_job')
 
-Start you rails server as normal in the set environemnt. Navigate to /logput e.g. [http://localhost:3000/logput](http://localhost:3000/logput)
+Start your rails server as normal in the set environment. Navigate to /logput e.g. [http://localhost:3000/logput](http://localhost:3000/logput)
 
 ## Contributing
 
