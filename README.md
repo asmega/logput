@@ -1,6 +1,6 @@
 # Logput
 
-[![Build Status](https://api.travis-ci.org/asmega/logput.svg)](https://travis-ci.org/asmega/logput)
+[![Build Status](https://api.travis-ci.org/asmega/logput.svg)](https://travis-ci.org/asmega/logput) [![Code Climate](https://codeclimate.com/github/asmega/logput/badges/gpa.svg)](https://codeclimate.com/github/asmega/logput)
 
 Rack middleware to sit in a rails app to put put the current environments log to a webpage. eg /logput
 
