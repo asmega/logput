@@ -1,9 +1,5 @@
 require 'spec_helper'
 
-module ActiveSupport; class TaggedLogging; end; end
-class Logger; end
-class Rails; end
-
 describe Logput::Middleware do
   subject{ described_class.new(app, :path_to_log_file => './spec/support/test.log') }
 
