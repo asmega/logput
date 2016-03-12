@@ -25,7 +25,7 @@ module Logput
     private
 
     def ensure_log_file_exists!
-      raise 'Log file does not exist' unless File.exists? @path_to_log_file
+      raise 'Log file does not exist' unless File.exist? @path_to_log_file
     end
 
     def is_logput?
