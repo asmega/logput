@@ -18,9 +18,9 @@ module Logput
       end
 
       # Placeholder for handles? method to be overridden when subclassed
-      # @param [Class] logger
+      # @param [Class] _logger
       # @return [Boolean]
-      def self.handles?(logger)
+      def self.handles?(_logger)
         raise NotImplementedError
       end
 
