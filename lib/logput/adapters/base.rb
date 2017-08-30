@@ -29,6 +29,24 @@ module Logput
       def path
         raise NotImplementedError
       end
+
+      # Enable overriding of the path with an environment variable
+      # @return [String] path
+      def path_override
+        return unless directory && filename
+
+        "#{directory}/#{filename}.log"
+      end
+
+      private
+
+      def filename
+        @filename ||= ENV['LOG_NAME'] || ENV['RAILS_ENV'] || ENV['RACK_ENV']
+      end
+
+      def directory
+        @directory ||= ENV['LOG_LOCATION_DIR']
+      end
     end
   end
 end

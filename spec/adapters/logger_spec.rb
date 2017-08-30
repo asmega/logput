@@ -26,5 +26,18 @@ describe Logput::Adapters::Logger do
     it 'returns the correct path' do
       expect(subject.path).to eq(path)
     end
+
+    context 'when environment variable overrides are present' do
+      after :each do
+        ENV['LOG_NAME'] = nil
+        ENV['LOG_LOCATION_DIR'] = nil
+      end
+
+      it 'returns the overridden path' do
+        ENV['LOG_NAME'] = 'development'
+        ENV['LOG_LOCATION_DIR'] = 'logs'
+        expect(subject.path).to eq('logs/development.log')
+      end
+    end
   end
 end
