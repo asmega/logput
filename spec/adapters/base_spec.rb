@@ -33,4 +33,25 @@ describe Logput::Adapters::Base do
       }.to raise_error(NotImplementedError)
     end
   end
+
+  describe '#path_override' do
+    subject { described_class.new(:foo) }
+
+    after :each do
+      ENV['LOG_NAME'] = nil
+      ENV['LOG_LOCATION_DIR'] = nil
+    end
+
+    it 'returns nil if environment variables are not set' do
+      expect(subject.path_override).to eq(nil)
+    end
+
+    it 'returns a path if the environment variables are set' do
+      ENV['LOG_NAME'] = 'development'
+      ENV['LOG_LOCATION_DIR'] = 'logs'
+      expect(subject.path_override).to eq('logs/development.log')
+    end
+
+
+  end
 end

@@ -46,6 +46,15 @@ Example.
 
 Start your rails server as normal in the set environment. Navigate to /logput e.g. [http://localhost:3000/logput](http://localhost:3000/logput)
 
+## Environment Variable Overrides
+
+It is possible to overide the location of the log files by using the following environment variables:
+
+* `LOG_NAME` - The name of the log file, e.g. `development` - `.log` will be appended to this. If unset logput will try to use `RAILS_ENV` or `RACK_ENV` as a fallback
+* `LOG_LOCATION_DIR` - The directory where the log file is located, e.g. `logs` - a `/` will be added when combined with the log name.
+
+The overrides will only be used if both are present (or the fallbacks in the case of the log name).
+
 ## Contributing
 
 1. Fork it

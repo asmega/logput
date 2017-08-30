@@ -15,6 +15,7 @@ module Logput
 
       # @return [String] path
       def path
+        return path_override if path_override
         @logger.instance_variable_get(:@logdev).filename
       end
     end
